@@ -52,12 +52,12 @@ CREATE TABLE FLIGHT_LEG (
     Flight_number INT NOT NULL,
     Scheduled_dep_time TIME,
     Scheduled_arr_time TIME,
-    Departure_airport CHAR(3),
-    Arrival_airport CHAR(3),
+    Dep_airport_code CHAR(3),
+    Arr_airport_code CHAR(3),
     PRIMARY KEY (Leg_no, Flight_number),
     FOREIGN KEY (Flight_number) REFERENCES FLIGHT(Number),
-    FOREIGN KEY (Departure_airport) REFERENCES AIRPORT(Airport_code),
-    FOREIGN KEY (Arrival_airport) REFERENCES AIRPORT(Airport_code)
+    FOREIGN KEY (Dep_airport_code) REFERENCES AIRPORT(Airport_code),
+    FOREIGN KEY (Arr_airport_code) REFERENCES AIRPORT(Airport_code)
 );
 
 -- LEG_INSTANCE
