@@ -84,14 +84,12 @@ CREATE TABLE FARE (
 
 -- SEAT
 CREATE TABLE SEAT (
+    Airplane_id VARCHAR(20) NOT NULL,
     Seat_no VARCHAR(5) NOT NULL,
-    Leg_no INT NOT NULL,
-    Flight_number INT NOT NULL,
-    Date DATE NOT NULL,
-    PRIMARY KEY (Seat_no, Leg_no, Flight_number, Date),
-    FOREIGN KEY (Leg_no, Flight_number, Date)
-        REFERENCES LEG_INSTANCE(Leg_no, Flight_number, Date)
-);
+    Class VARCHAR(20) NOT NULL,
+    PRIMARY KEY (Airplane_id, Seat_no),
+    FOREIGN KEY (Airplane_id) REFERENCES AIRPLANE(Airplane_id)
+)
 
 -- =============================================
 -- CSV Imports
