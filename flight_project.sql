@@ -1,6 +1,5 @@
 -- =============================================
--- Flight Project sql script
--- MySQL
+-- TABLES
 -- =============================================
 
 -- AIRPORT
@@ -12,19 +11,19 @@ CREATE TABLE AIRPORT (
     PRIMARY KEY (Airport_code)
 );
 
---AIRPLANE_TYPE
+-- AIRPLANE_TYPE
 CREATE TABLE AIRPLANE_TYPE (
     Type_name VARCHAR(50) NOT NULL,
-    Company VARCHAR(100),
-    Max_seats INT,
+    Company VARCHAR(100) NOT NULL,
+    Max_seats INT NOT NULL,
     PRIMARY KEY (Type_name)
 );
 
 -- AIRPLANE
 CREATE TABLE AIRPLANE (
     Airplane_id VARCHAR(20) NOT NULL,
-    Total_no_of_seats INT,
-    Type_name VARCHAR(50),
+    Total_no_of_seats INT NOT NULL,
+    Type_name VARCHAR(50) NOT NULL,
     PRIMARY KEY (Airplane_id),
     FOREIGN KEY (Type_name) REFERENCES AIRPLANE_TYPE(Type_name)
 );
@@ -89,12 +88,23 @@ CREATE TABLE SEAT (
     Flight_number INT NOT NULL,
     Date DATE NOT NULL,
     PRIMARY KEY (Seat_no, Leg_no, Flight_number, Date),
-    FOREIGN KEY (Leg_no, Flight_number, Date)
-        REFERENCES LEG_INSTANCE(Leg_no, Flight_number, Date)
+    FOREIGN KEY (Leg_no, Flight_number, Date) REFERENCES LEG_INSTANCE(Leg_no, Flight_number, Date)
+);
+
+-- RESERVATION
+CREATE TABLE RESERVATION (
+    Customer_name VARCHAR(100) NOT NULL,
+    Cphone VARCHAR(20),
+    Seat_no VARCHAR(5) NOT NULL,
+    Leg_no INT NOT NULL,
+    Flight_number INT NOT NULL,
+    Date DATE NOT NULL,
+    PRIMARY KEY (Customer_name, Seat_no, Leg_no, Flight_number, Date),
+    FOREIGN KEY (Seat_no, Leg_no, Flight_number, Date) REFERENCES SEAT(Seat_no, Leg_no, Flight_number, Date)
 );
 
 -- =============================================
--- CSV Imports
+-- CSV IMPORTS
 -- =============================================
 
 LOAD DATA LOCAL INFILE 'AIRPORT.csv'
@@ -150,3 +160,4 @@ INTO TABLE SEAT
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
+
